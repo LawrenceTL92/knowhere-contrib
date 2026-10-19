@@ -3,7 +3,7 @@ name: C and Java bindings
 on:
   workflow_dispatch:
   push:
-    branches: [codex/knowhere-jni]
+    branches: [main]
   pull_request:
     paths:
       - "include/**"
@@ -21,7 +21,7 @@ permissions:
 
 concurrency:
   group: jni-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   linux-x86_64:
